@@ -26,4 +26,4 @@ The analysis utilizes a relational database consisting of several key dimensions
 
 ● Financial Records: Transactional data used to track revenue streams and payment history.
 
-View visualization analysis here:  
+View visualization analysis here:  https://public.tableau.com/app/profile/maxwell.appiah5460/viz/RockbusterStealthLLC2/Story1?publish=yes
