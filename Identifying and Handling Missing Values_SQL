@@ -1,0 +1,43 @@
+-- The following query is used to check if any key columns in the film table contain missing (NULL) values.
+SELECT * 
+FROM film 
+WHERE film_id IS NULL 
+  OR title IS NULL 
+  OR description IS NULL 
+  OR release_year IS NULL 
+  OR language_id IS NULL 
+  OR rental_duration IS NULL 
+  OR rental_rate IS NULL 
+  OR length IS NULL 
+  OR replacement_cost IS NULL 
+  OR rating IS NULL 
+  OR last_update IS NULL 
+  OR special_features IS NULL 
+  OR fulltext IS NULL; 
+
+
+-- The following query checks that non-numerical fields don't contain placeholder values such as 'N/A', empty strings, or similar variations. 
+-- Example query for the title field.
+SELECT * 
+FROM film 
+WHERE title IS NULL 
+  OR title = '' 
+  OR title = ' ' 
+  OR title = 'N/A' 
+  OR title = 'n/a' 
+  OR title = 'NA' 
+  OR title = 'na';
+
+
+-- Method to impute any potential missing values in the rental_duration column. 
+
+-- Calculate average rental rate for records that are not null.
+WITH AvgRentalDuration AS ( 
+	SELECT AVG(rental_duration) AS avg_rental_duration 
+ FROM film 
+ WHERE rental_duration IS NOT NULL 
+ ) 
+-- Impute null values with the calculated 'avg_rental_duration'. 
+UPDATE film 
+SET rental_duration = (SELECT avg_rental_duration FROM AvgRentalDuration) 
+WHERE rental_duration IS NULL;
